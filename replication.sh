@@ -3,7 +3,6 @@
 # CONFIGURE PRIMARY
 if [[ -z $REPLICATE_FROM ]]; then
 
-touch filetext
 psql -U postgres -c "SET password_encryption = 'scram-sha-256'; CREATE ROLE $REPLICA_POSTGRES_USER WITH REPLICATION PASSWORD '$REPLICA_POSTGRES_PASSWORD' LOGIN;"
 
 # Add replication settings to primary postgres conf
