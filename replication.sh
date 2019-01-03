@@ -52,7 +52,7 @@ chown postgres:postgres ~/.pgpass.conf
 chmod 0600 ~/.pgpass.conf
 
 # Backup replica from the primary
-until PGPASSFILE=~/.pgpass.conf pg_basebackup -h ${REPLICATE_FROM} -D ${PGDATA} -U ${POSTGRES_USER} -vP -w
+until PGPASSFILE=~/.pgpass.conf pg_basebackup -h ${nodes.sqldb.address} -D ${PGDATA} -U ${POSTGRES_USER} -vP -w
 do
     # If docker is starting the containers simultaneously, the backup may encounter
     # the primary amidst a restart. Retry until we can make contact.
@@ -66,7 +66,7 @@ rm ~/.pgpass.conf
 # Create the recovery.conf file so the backup knows to start in recovery mode
 cat > ${PGDATA}/recovery.conf <<EOF
 standby_mode = on
-primary_conninfo = 'host=${REPLICATE_FROM} port=5432 user=${POSTGRES_USER} password=${POSTGRES_PASSWORD} application_name=${REPLICA_NAME}'
+primary_conninfo = 'host=${nodes.sqldb.address} port=5432 user=${POSTGRES_USER} password=${POSTGRES_PASSWORD} application_name=${REPLICA_NAME}'
 primary_slot_name = '${REPLICA_NAME}_slot'
 EOF
 
