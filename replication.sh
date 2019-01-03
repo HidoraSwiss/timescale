@@ -2,7 +2,6 @@
 
 # Stop postgres instance and clear out PGDATA
 sudo -u postgres -i bash -c 'pg_ctl -D ${PGDATA} -w stop'
-pg_ctl -D ${PGDATA} -m fast -w stop
 rm -rf ${PGDATA}
 
 # Create a pg pass file so pg_basebackup can send a password to the primary
