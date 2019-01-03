@@ -1,6 +1,5 @@
 #!/bin/bash
 
-export REPLICATE_TO=${nodes.sqldb2.address}
 export REPLICATE_FROM=${nodes.sqldb.address}
 # CONFIGURE PRIMARY
 if [[ -z $REPLICATE_FROM ]]; then
