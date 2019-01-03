@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # CONFIGURE PRIMARY
-if [[ -z $AAAA ]]; then
+if [[ -z $REPLICATE_FROM ]]; then
 
 psql -U postgres -c "SET password_encryption = 'scram-sha-256'; CREATE ROLE $REPLICA_POSTGRES_USER WITH REPLICATION PASSWORD '$REPLICA_POSTGRES_PASSWORD' LOGIN;"
 
