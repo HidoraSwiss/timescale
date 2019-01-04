@@ -25,12 +25,12 @@ fi
 # Add replication settings to primary pg_hba.conf
 # Using the hostname of the primary doesn't work with docker containers, so we resolve to an IP using getent,
 # or we use a subnet provided at runtime.
-if  [[ -z $REPLICATION_SUBNET ]]; then
-    REPLICATION_SUBNET=$(getent hosts ${REPLICATE_TO} | awk '{ print $1 }')/16
-fi
+#if  [[ -z $REPLICATION_SUBNET ]]; then
+#    REPLICATION_SUBNET=$(getent hosts ${REPLICATE_TO} | awk '{ print $1 }')/16
+#fi
 
 cat >> ${PGDATA}/pg_hba.conf <<EOF
-host     replication     ${REPLICA_POSTGRES_USER}   ${REPLICATION_SUBNET}       scram-sha-256
+host     replication     ${REPLICA_POSTGRES_USER}   ${REPLICATE_TO}/24       scram-sha-256
 EOF
 
 # Restart postgres and add replication slot
