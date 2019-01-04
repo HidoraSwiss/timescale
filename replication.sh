@@ -35,6 +35,7 @@ EOF
 
 # Restart postgres and add replication slot
 #pg_ctl -D ${PGDATA} -m fast -w restart
+sudo -u postgres -i bash -c 'pg_ctl -D ${PGDATA} -m fast -w restart'
 psql -U postgres -c "SELECT * FROM pg_create_physical_replication_slot('${REPLICA_NAME}_slot');"
 
 # CONFIGURE REPLICA
