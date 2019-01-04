@@ -30,7 +30,7 @@ fi
 #fi
 
 cat >> ${PGDATA}/pg_hba.conf <<EOF
-host     replication     ${REPLICA_POSTGRES_USER}   ${REPLICATE_TO}/24       scram-sha-256
+host     replication     ${REPLICA_POSTGRES_USER}   ${nodes.sqldb2.address}/24       scram-sha-256
 EOF
 
 # Restart postgres and add replication slot
