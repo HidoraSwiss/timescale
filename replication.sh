@@ -35,8 +35,8 @@ host     replication     ${REPLICA_POSTGRES_USER}   ${REPLICATION_SUBNET}       
 EOF
 
 # Restart postgres and add replication slot
-pg_ctl -D ${PGDATA} -m fast -w restart
-psql -U postgres -c "SELECT * FROM pg_create_physical_replication_slot('${REPLICA_NAME}_slot');"
+#pg_ctl -D ${PGDATA} -m fast -w restart
+#psql -U postgres -c "SELECT * FROM pg_create_physical_replication_slot('${REPLICA_NAME}_slot');"
 
 # CONFIGURE REPLICA
 else
