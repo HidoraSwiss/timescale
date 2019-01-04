@@ -29,7 +29,8 @@ if  [[ -z $REPLICATION_SUBNET ]]; then
 fi
 
 cat >> ${PGDATA}/pg_hba.conf <<EOF
-host     replication     ${REPLICA_POSTGRES_USER}   ${nodes.sqldb2.address}       scram-sha-256
+host     replication     ${REPLICA_POSTGRES_USER}   ${REPLICATION_SUBNET}       scram-sha-256
+#host     replication     ${REPLICA_POSTGRES_USER}   ${nodes.sqldb2.address}       scram-sha-256
 EOF
 
 # Restart postgres and add replication slot
