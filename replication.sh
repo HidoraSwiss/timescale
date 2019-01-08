@@ -40,7 +40,6 @@ psql -U postgres -c "SELECT * FROM pg_create_physical_replication_slot('${REPLIC
 
 # CONFIGURE REPLICA
 else
-
 # Stop postgres instance and clear out PGDATA
 pg_ctl -D ${PGDATA} -m fast -w stop
 rm -rf ${PGDATA}
@@ -62,7 +61,7 @@ do
 done
 
 # Remove pg pass file -- it is not needed after backup is restored
-rm ~/.pgpass.conf
+#rm ~/.pgpass.conf
 
 # Create the recovery.conf file so the backup knows to start in recovery mode
 cat > ${PGDATA}/recovery.conf <<EOF
