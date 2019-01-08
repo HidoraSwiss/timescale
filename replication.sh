@@ -41,17 +41,19 @@ psql -U postgres -c "SELECT * FROM pg_create_physical_replication_slot('${REPLIC
 # CONFIGURE REPLICA
 else
 # Stop postgres instance and clear out PGDATA
+touch a
 sudo -u postgres -i bash -c 'pg_ctl -D ${PGDATA} -m fast -w stop'
+touch b
 #pg_ctl -D ${PGDATA} -m fast -w stop
 rm -rf ${PGDATA}
-
+touch c
 # Create a pg pass file so pg_basebackup can send a password to the primary
 cat > ~/.pgpass.conf <<EOF
 *:5432:replication:${POSTGRES_USER}:${POSTGRES_PASSWORD}
 EOF
 chown postgres:postgres ~/.pgpass.conf
 chmod 0600 ~/.pgpass.conf
-
+touch d
 # Backup replica from the primary
 until PGPASSFILE=~/.pgpass.conf pg_basebackup -h ${REPLICATE_FROM} -D ${PGDATA} -U ${POSTGRES_USER} -vP -w
 do
